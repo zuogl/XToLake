@@ -1,0 +1,224 @@
+/* X to Lark Content Script Styles */
+
+/* 保存按钮样式 */
+.lark-save-button {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.lark-save-button:hover {
+  background-color: rgba(29, 155, 240, 0.1) !important;
+}
+
+/* 图标样式 */
+.lark-icon {
+  transition: opacity 0.2s;
+}
+
+.lark-save-button:hover .lark-icon {
+  opacity: 1 !important;
+}
+
+/* Toast通知样式 */
+.lark-toast {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  font-size: 14px;
+  font-weight: 500;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.lark-toast-info {
+  background: #1d9bf0;
+  color: white;
+}
+
+.lark-toast-success {
+  background: #00ba7c;
+  color: white;
+}
+
+.lark-toast-error {
+  background: #f4212e;
+  color: white;
+}
+
+.lark-toast-link {
+  background: white;
+  border: 1px solid #e1e8ed;
+}
+
+.lark-toast-link a {
+  color: #1d9bf0;
+  text-decoration: none;
+}
+
+.lark-toast-link a:hover {
+  text-decoration: underline;
+}
+
+/* Dialog遮罩层 */
+.lark-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Dialog主体 */
+.lark-dialog {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Dialog头部 */
+.lark-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.lark-dialog-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f1419;
+}
+
+.lark-dialog-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #536471;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.lark-dialog-close:hover {
+  background-color: rgba(15, 20, 25, 0.1);
+}
+
+/* Dialog内容 */
+.lark-dialog-content {
+  padding: 24px;
+  color: #0f1419;
+  line-height: 1.6;
+}
+
+.lark-dialog-content p {
+  margin: 10px 0;
+}
+
+.lark-dialog-content hr {
+  border: none;
+  border-top: 1px solid #e1e8ed;
+  margin: 16px 0;
+}
+
+.lark-dialog-content label {
+  display: block;
+  margin: 12px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.lark-dialog-content input[type="radio"],
+.lark-dialog-content input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+/* Dialog底部 */
+.lark-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #e1e8ed;
+}
+
+/* 按钮样式 */
+.lark-btn {
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.lark-btn-cancel {
+  background: white;
+  color: #0f1419;
+  border: 1px solid #cfd9de;
+}
+
+.lark-btn-cancel:hover {
+  background: #f7f9f9;
+}
+
+.lark-btn-primary {
+  background: #1d9bf0;
+  color: white;
+}
+
+.lark-btn-primary:hover {
+  background: #1a8cd8;
+}

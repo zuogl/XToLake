@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X to Lark - 配置</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 头部 -->
+    <div class="header">
+      <h1>🚀 X to Lark</h1>
+      <p class="subtitle">优质帖子收藏助手</p>
+    </div>
+
+    <!-- Tab切换 -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="config">配置</button>
+      <button class="tab-btn" data-tab="history">历史</button>
+      <button class="tab-btn" data-tab="about">关于</button>
+    </div>
+
+    <!-- 配置Tab -->
+    <div class="tab-content active" id="config-tab">
+      <!-- 飞书配置 -->
+      <section class="section">
+        <h3>📊 飞书多维表格配置</h3>
+        <div class="form-group">
+          <label>App ID *</label>
+          <input type="text" id="feishuAppId" placeholder="cli_xxx">
+        </div>
+        <div class="form-group">
+          <label>App Secret *</label>
+          <input type="password" id="feishuAppSecret" placeholder="请输入App Secret">
+        </div>
+        <div class="form-group">
+          <label>多维表格来源</label>
+          <select id="bitableSource">
+            <option value="wiki">Wiki 知识库 (推荐)</option>
+            <option value="standalone">独立多维表格</option>
+          </select>
+        </div>
+        <div id="wikiConfig" style="display: block;">
+          <div class="form-group">
+            <label>Wiki Node Token * <small style="color: #666;">(必填)</small></label>
+            <input type="text" id="wikiNodeToken" placeholder="从Wiki文档URL中获取">
+            <small style="color: #999; font-size: 11px;">
+              URL: https://xxx.feishu.cn/wiki/<strong>这里是node_token</strong>
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Table ID <small style="color: #666;">(可选，留空自动获取第一个表格)</small></label>
+            <input type="text" id="wikiTableId" placeholder="tblXXXXXXXXXXXX">
+            <small style="color: #999; font-size: 11px;">
+              如果多维表格有多个数据表，可以指定具体的 Table ID
+            </small>
+          </div>
+        </div>
+        <div id="standaloneConfig" style="display: none;">
+          <div class="form-group">
+            <label>多维表格 App Token *</label>
+            <input type="text" id="bitableAppToken" placeholder="从多维表格URL中获取">
+            <small style="color: #999; font-size: 11px;">
+              URL: https://xxx.feishu.cn/base/<strong>appToken</strong>?table=tableId
+            </small>
+          </div>
+          <div class="form-group">
+            <label>Table ID *</label>
+            <input type="text" id="bitableTableId" placeholder="从多维表格URL中获取">
+            <small style="color: #999; font-size: 11px;">
+              URL: https://xxx.feishu.cn/base/appToken?table=<strong>tableId</strong>
+            </small>
+          </div>
+        </div>
+        <button class="btn btn-test" id="testFeishu">测试连接</button>
+      </section>
+
+      <!-- AI配置 -->
+      <section class="section">
+        <h3>🤖 AI智能标签配置</h3>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="aiEnabled">
+            启用AI自动打标签
+          </label>
+        </div>
+        <div class="form-group">
+          <label>AI服务商</label>
+          <select id="aiProvider">
+            <option value="deepseek">DeepSeek (推荐)</option>
+            <option value="openai">OpenAI GPT-4</option>
+            <option value="claude">Claude</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>API Key *</label>
+          <input type="password" id="aiApiKey" placeholder="sk-xxx">
+        </div>
+        <div class="form-group">
+          <label>标签生成模式</label>
+          <select id="aiTagMode">
+            <option value="preview">保存前预览 (推荐)</option>
+            <option value="background">后台自动生成</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- 删除配置 -->
+      <section class="section">
+        <h3>🗑️ 删除设置</h3>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="deleteFromFeishu">
+            删除历史记录时同时删除飞书中的记录
+          </label>
+          <small style="color: #999; display: block; margin-top: 4px;">
+            启用后,从历史记录删除条目时,会同步删除飞书多维表格中的对应记录
+          </small>
+        </div>
+      </section>
+
+      <!-- 保存按钮 -->
+      <button class="btn btn-primary btn-large" id="saveConfig">保存配置</button>
+    </div>
+
+    <!-- 历史Tab -->
+    <div class="tab-content" id="history-tab">
+      <section class="section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 style="margin: 0;">📚 最近保存</h3>
+          <button class="btn btn-delete" id="clearAllHistory" style="display: none;">一键清空</button>
+        </div>
+        <div id="historyList" class="history-list">
+          <!-- 动态加载 -->
+        </div>
+      </section>
+    </div>
+
+    <!-- 关于Tab -->
+    <div class="tab-content" id="about-tab">
+      <section class="section">
+        <h3>关于插件</h3>
+        <p><strong>版本:</strong> 1.0.0</p>
+        <p><strong>作者:</strong> X to Lark Team</p>
+        <p class="description">
+          将X(Twitter)上的优质帖子保存到飞书多维表格，支持AI智能打标签、Thread检测等功能。
+        </p>
+        <h4>使用说明</h4>
+        <ol>
+          <li>在飞书中创建或打开知识库下的多维表格</li>
+          <li>复制多维表格URL中的App Token和Table ID</li>
+          <li>在飞书开放平台创建应用，获取App ID和App Secret</li>
+          <li>在应用权限中开启"查看、评论、编辑和管理多维表格"</li>
+          <li>配置DeepSeek API Key（可选，用于AI标签）</li>
+          <li>在X网站浏览帖子，点击保存按钮</li>
+        </ol>
+        <h4>如何获取 App Token 和 Table ID</h4>
+        <p style="font-size: 12px; color: #666;">
+          打开你的多维表格，URL格式为：<br>
+          <code>https://xxx.feishu.cn/base/<strong>这里是AppToken</strong>?table=<strong>这里是TableID</strong></code>
+        </p>
+        <h4>相关链接</h4>
+        <ul>
+          <li><a href="https://open.feishu.cn/" target="_blank">飞书开放平台</a></li>
+          <li><a href="https://platform.deepseek.com/" target="_blank">DeepSeek平台</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <!-- Toast通知容器 -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
